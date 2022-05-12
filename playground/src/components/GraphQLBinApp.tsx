@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Provider, connect } from 'react-redux'
 import createStore from '../state/createStore'
 import 'isomorphic-fetch'
-import { styled} from '../styled'
+import { styled } from '../styled'
 import { Store } from 'redux'
 import PlaygroundWrapper from './PlaygroundWrapper'
 import { injectState } from '../state/workspace/actions'
@@ -81,6 +81,13 @@ class GraphQLBinApp extends React.Component<Props & ReduxProps, State> {
         this.setState({
           endpoint: res.endpoint,
           subscriptionEndpoint: res.subscriptionEndpoint,
+          loading: false,
+        })
+      })
+      .catch(_ => {
+        this.setState({
+          endpoint: '',
+          subscriptionEndpoint: '',
           loading: false,
         })
       })

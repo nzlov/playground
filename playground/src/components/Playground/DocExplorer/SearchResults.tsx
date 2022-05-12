@@ -38,26 +38,26 @@ export default class SearchResults extends React.Component<Props, {}> {
       typeNames.unshift(withinType.name)
     }
 
-    const heads: string[] = [];
-    const queryIdx = typeNames.indexOf("Query");
+    const heads: string[] = []
+    const queryIdx = typeNames.indexOf('Query')
     if (queryIdx >= 0) {
-      heads.push("Query");
+      heads.push('Query')
       typeNames.splice(queryIdx, 1)
     }
-    const mutationIdx = typeNames.indexOf("Mutation");
+    const mutationIdx = typeNames.indexOf('Mutation')
     if (mutationIdx >= 0) {
-      heads.push("Mutation");
+      heads.push('Mutation')
       typeNames.splice(mutationIdx, 1)
     }
-    const subscriptionIdx = typeNames.indexOf("Subscription");
+    const subscriptionIdx = typeNames.indexOf('Subscription')
     if (subscriptionIdx >= 0) {
-      heads.push("Subscription");
+      heads.push('Subscription')
       typeNames.splice(subscriptionIdx, 1)
     }
 
-    typeNames = heads.concat(typeNames);
+    typeNames = heads.concat(typeNames)
 
-    let count = 0;
+    let count = 0
     for (const typeName of typeNames) {
       if (
         matchedWithin.length + matchedTypes.length + matchedFields.length >=
@@ -66,7 +66,7 @@ export default class SearchResults extends React.Component<Props, {}> {
         break
       }
 
-      if (typeName.startsWith("__")) {
+      if (typeName.startsWith('__')) {
         continue
       }
 
@@ -79,7 +79,10 @@ export default class SearchResults extends React.Component<Props, {}> {
           field.parent = type
           let matchingArgs
 
-          if (!isMatch(fieldName, searchValue) && !isMatch(field.description, searchValue)) {
+          if (
+            !isMatch(fieldName, searchValue) &&
+            !isMatch(field.description, searchValue)
+          ) {
             if (field.args && field.args.length) {
               matchingArgs = field.args.filter(arg =>
                 isMatch(arg.name, searchValue),
@@ -116,26 +119,28 @@ export default class SearchResults extends React.Component<Props, {}> {
       }
 
       if (withinType !== type) {
-        if (isMatch(typeName, searchValue) || isMatch(type.description, searchValue)) {
+        if (
+          isMatch(typeName, searchValue) ||
+          isMatch(type.description, searchValue)
+        ) {
           matchedTypes.push(
-              <div className="doc-category-item" key={typeName}>
-                <TypeLink
-                    type={type}
-                    x={level}
-                    y={count++}
-                    lastActive={false}
-                    showTitle={true}
-                    sessionId={sessionId}
-                />
-              </div>,
+            <div className="doc-category-item" key={typeName}>
+              <TypeLink
+                type={type}
+                x={level}
+                y={count++}
+                lastActive={false}
+                showTitle={true}
+                sessionId={sessionId}
+              />
+            </div>,
           )
         }
       }
-
     }
 
     if (
-        matchedWithin.length + matchedTypes.length + matchedFields.length ===
+      matchedWithin.length + matchedTypes.length + matchedFields.length ===
       0
     ) {
       return <NoResult>No results found.</NoResult>
@@ -165,6 +170,9 @@ export default class SearchResults extends React.Component<Props, {}> {
 }
 
 function isMatch(sourceText, searchValue) {
+  if (sourceText === null) {
+    return
+  }
   try {
     const escaped = searchValue.replace(/[^_0-9A-Za-z]/g, ch => '\\' + ch)
     return sourceText.search(new RegExp(escaped, 'i')) !== -1
