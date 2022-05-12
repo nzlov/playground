@@ -4,7 +4,7 @@ import SearchResults from './SearchResults'
 import GraphDocsRoot from './GraphDocsRoot'
 import SearchBox from './SearchBox'
 import { styled } from '../../../styled'
-import GraphTypesRoot from "./GraphTypesRoot";
+import GraphTypesRoot from './GraphTypesRoot'
 
 export interface Props {
   searchValue: string
@@ -18,7 +18,15 @@ export interface Props {
 
 export default class RootColumn extends React.PureComponent<Props, {}> {
   render() {
-    const { searchValue, schema, width, sessionId, handleSearch, showSchema, typeOnly } = this.props
+    const {
+      searchValue,
+      schema,
+      width,
+      sessionId,
+      handleSearch,
+      showSchema,
+      typeOnly,
+    } = this.props
     return (
       <ColumnDoc width={width} overflow={false}>
         <SearchBox onSearch={handleSearch} />
@@ -32,12 +40,14 @@ export default class RootColumn extends React.PureComponent<Props, {}> {
               typeOnly={typeOnly}
             />
           )}
-          {!searchValue && showSchema && (
-            <GraphDocsRoot schema={schema} sessionId={sessionId} />
-          )}
-          {!searchValue && !showSchema && (
-            <GraphTypesRoot schema={schema} sessionId={sessionId} />
-          )}
+          {!searchValue &&
+            showSchema && (
+              <GraphDocsRoot schema={schema} sessionId={sessionId} />
+            )}
+          {!searchValue &&
+            !showSchema && (
+              <GraphTypesRoot schema={schema} sessionId={sessionId} />
+            )}
         </Column>
       </ColumnDoc>
     )

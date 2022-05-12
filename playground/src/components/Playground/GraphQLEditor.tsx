@@ -24,7 +24,7 @@ import SideTab from './ExplorerTabs/SideTab'
 import SideTabs from './ExplorerTabs/SideTabs'
 import SDLView from './SchemaExplorer/SDLView'
 import GraphDocs from './DocExplorer/GraphDocs'
-import TypeDocs from "./DocExplorer/TypeDocs";
+import TypeDocs from './DocExplorer/TypeDocs'
 
 import { styled } from '../../styled/index'
 
@@ -282,10 +282,7 @@ class GraphQLEditor extends React.PureComponent<Props & ReduxProps> {
             />
           </SideTab>
           <SideTab label="Types" activeColor="blue" tabWidth="65px">
-            <TypeDocs
-                schema={this.props.schema}
-                ref={this.setDocExplorerRef}
-            />
+            <TypeDocs schema={this.props.schema} ref={this.setDocExplorerRef} />
           </SideTab>
           <SideTab label="Schema" activeColor="purple" tabWidth="65px">
             <SDLView

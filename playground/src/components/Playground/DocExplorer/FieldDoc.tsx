@@ -78,8 +78,8 @@ export default class FieldDoc extends React.Component<Props, State> {
     return (
       <div ref={this.setRef}>
         <FieldDocsDescription
-            className="doc-type-description"
-            markdown={field.description || ''}
+          className="doc-type-description"
+          markdown={field.description || ''}
         />
 
         <DocsHeader>
@@ -92,23 +92,24 @@ export default class FieldDoc extends React.Component<Props, State> {
           />
         </DocsHeader>
 
-        {obj.args && obj.args.length > 0 && (
+        {obj.args &&
+          obj.args.length > 0 && (
             <div>
               <CategoryTitle>arguments</CategoryTitle>
               {obj.args.map((arg, index) => (
-                  <div key={arg.name}>
-                    <div>
-                      <Argument
-                          arg={arg}
-                          x={level}
-                          y={index}
-                          sessionId={this.props.sessionId}
-                      />
-                    </div>
+                <div key={arg.name}>
+                  <div>
+                    <Argument
+                      arg={arg}
+                      x={level}
+                      y={index}
+                      sessionId={this.props.sessionId}
+                    />
                   </div>
+                </div>
               ))}
             </div>
-        )}
+          )}
 
         <CategoryTitle>{`${typeInstance} details`}</CategoryTitle>
 
@@ -135,7 +136,7 @@ export default class FieldDoc extends React.Component<Props, State> {
               fields={obj.fields}
               interfaces={obj.interfaces}
               level={level}
-              indexOffset={obj.args? obj.args.length: 0}
+              indexOffset={obj.args ? obj.args.length : 0}
               sessionId={this.props.sessionId}
             />
           )}
@@ -199,8 +200,8 @@ const FieldDocsDescription = styled(MarkdownContent)`
   font-size: 14px;
   padding: 0;
   color: rgba(0, 0, 0, 0.8);
-  background-color: rgba(0,0,0,0.07);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.07);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 `
 
 const DocsDescription = styled(MarkdownContent)`

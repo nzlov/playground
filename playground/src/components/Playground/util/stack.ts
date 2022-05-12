@@ -1,4 +1,4 @@
-import { isType, GraphQLInterfaceType, GraphQLObjectType } from "graphql";
+import { isType, GraphQLInterfaceType, GraphQLObjectType } from 'graphql'
 import { Map } from 'immutable'
 
 export function getNewStack(root, schema, stack: Map<any, any>) {
@@ -68,20 +68,21 @@ function filterRootFields(rootType: GraphQLObjectType | undefined | null): any {
   if (!rootType) {
     return null
   }
-  const fields = { ...rootType.getFields()};
-  Object.keys(fields).forEach((fieldName) => {
+  const fields = { ...rootType.getFields() }
+  Object.keys(fields).forEach(fieldName => {
     if (fieldName.startsWith('__')) {
-      delete fields[fieldName];
+      delete fields[fieldName]
     }
-  });
-  return fields;
+  })
+  return fields
 }
 
 export function getRootMap(schema): any {
   return {
     ...filterRootFields(schema.getQueryType()),
     ...(schema.getMutationType && filterRootFields(schema.getMutationType())),
-    ...(schema.getSubscriptionType && filterRootFields(schema.getSubscriptionType())),
+    ...(schema.getSubscriptionType &&
+      filterRootFields(schema.getSubscriptionType())),
   }
 }
 
@@ -101,7 +102,7 @@ export function serializeRoot(schema): SerializedRoot {
       field.path = fieldName
       field.parent = null
       return field
-    });
+    })
   const mutationType = schema.getMutationType && schema.getMutationType()
   if (mutationType) {
     const mutationFieldMap = mutationType.getFields()
@@ -191,19 +192,19 @@ export function serialize(schema, field) {
 
 // Return element that match index on object
 export function getElement(obj: any, index: number) {
-  let i = 0;
+  let i = 0
   if (obj.args[index - i]) {
     return obj.args[index - i]
   }
-  i += obj.args.length;
+  i += obj.args.length
   if (obj.interfaces[index + i]) {
     return obj.interfaces[index + i]
   }
-  i += obj.interfaces.length;
+  i += obj.interfaces.length
   if (obj.fields[index - i]) {
     return obj.fields[index - i]
   }
-  i += obj.fields.length;
+  i += obj.fields.length
   if (obj.implementations[index - i]) {
     return obj.implementations[index - i]
   }

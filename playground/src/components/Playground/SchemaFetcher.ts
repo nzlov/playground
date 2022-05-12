@@ -90,15 +90,22 @@ export class SchemaFetcher {
 
   private stripSchema(data: any) {
     if (data) {
-      const {__schema: {queryType: {name: queryName}, types}} = data;
-      data.__schema.types = types.map((type) => {
-        if (type.name === queryName) {
-          type.fields = type.fields.filter(({name}) => name !== '__tags')
-        }
-        return type;
-      }).filter(({name}) => name !== '__TagEntry' && name !== '__Tag');
+      const {
+        __schema: {
+          queryType: { name: queryName },
+          types,
+        },
+      } = data
+      data.__schema.types = types
+        .map(type => {
+          if (type.name === queryName) {
+            type.fields = type.fields.filter(({ name }) => name !== '__tags')
+          }
+          return type
+        })
+        .filter(({ name }) => name !== '__TagEntry' && name !== '__Tag')
     }
-    return data;
+    return data
   }
   private getSchema(data: any) {
     const schemaString = JSON.stringify(data)

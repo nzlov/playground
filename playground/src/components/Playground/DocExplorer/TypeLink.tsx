@@ -145,48 +145,44 @@ class TypeLink extends React.Component<
         {beforeNode}
         {beforeNode && ' '}
         <div>
-          {showTitle && type.description && (
-              <Title>
-                {type.description}
-              </Title>
-          )}
+          {showTitle && type.description && <Title>{type.description}</Title>}
           <div>
             {!isGraphqlType && (
-                <span>
-            <span className="field-name">{fieldName}</span>
-                  {type.args &&
+              <span>
+                <span className="field-name">{fieldName}</span>
+                {type.args &&
                   type.args.length > 0 && [
                     '(',
                     <span key="args">
-                  {this.state.collapsed ? (
-                      <Dots>...</Dots>
-                  ) : (
-                      type.args.map(arg => (
+                      {this.state.collapsed ? (
+                        <Dots>...</Dots>
+                      ) : (
+                        type.args.map(arg => (
                           <ArgumentInline key={arg.name} arg={arg} />
-                      ))
-                  )}
-                </span>,
+                        ))
+                      )}
+                    </span>,
                     ')',
                   ]}
-                  {': '}
-          </span>
+                {': '}
+              </span>
             )}
             <span className="type-name">{renderType(type.type || type)}</span>
             {type.defaultValue !== undefined ? (
-                <DefaultValue>
-                  {' '}
-                  = <span>{`${JSON.stringify(type.defaultValue, null, 2)}`}</span>
-                </DefaultValue>
+              <DefaultValue>
+                {' '}
+                = <span>{`${JSON.stringify(type.defaultValue, null, 2)}`}</span>
+              </DefaultValue>
             ) : (
-                undefined
+              undefined
             )}
           </div>
         </div>
 
         {clickable && (
-            <IconBox>
-              <Triangle />
-            </IconBox>
+          <IconBox>
+            <Triangle />
+          </IconBox>
         )}
         {afterNode && ' '}
         {afterNode}
@@ -198,18 +194,18 @@ class TypeLink extends React.Component<
 function renderType(type) {
   if (type instanceof GraphQLNonNull) {
     return (
-        <span>
+      <span>
         {renderType(type.ofType)}
-          {'!'}
+        {'!'}
       </span>
     )
   }
   if (type instanceof GraphQLList) {
     return (
-        <span>
+      <span>
         {'['}
-          {renderType(type.ofType)}
-          {']'}
+        {renderType(type.ofType)}
+        {']'}
       </span>
     )
   }
@@ -242,16 +238,16 @@ const mapStateToProps = (state, { x, y }) => {
 const selector = createSelector([mapStateToProps], s => s)
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators(
-        {
-          addStack,
-        },
-        dispatch,
-    )
+  bindActionCreators(
+    {
+      addStack,
+    },
+    dispatch,
+  )
 
 export default connect<ReduxProps, DispatchFromProps, Props>(
-    selector,
-    mapDispatchToProps,
+  selector,
+  mapDispatchToProps,
 )(toJS(TypeLink))
 
 interface DocsCategoryItemProps {
@@ -310,4 +306,4 @@ const Title = styled.div`
   color: #172a3a;
   font-size: 12px;
   font-weight: 500;
-`;
+`
